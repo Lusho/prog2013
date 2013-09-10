@@ -1,0 +1,31 @@
+#include "stdafx.h"
+#include "stdio.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	float a,b,c,ing;
+cout<<"ingrese el ingreso semanal prod A";
+cin>>a;
+cout<<"ingrese el ingreso semanal prod B";
+cin>>b;
+cout<<"ingrese el ingreso semanal prod C";
+cin>>c;
+ing=(a*4+b*4+c*4);
+cout<<"el ingreso mensual total es:";
+cout<<ing<<"\n";
+cout<<"el ingreso mensual del prod A es:";
+cout<<(a*4)<<"\n";
+cout<<"el ingreso mensual del prod B es:";
+cout<<(b*4)<<"\n";
+cout<<"el ingreso mensual del prod C es:";
+cout<<(c*4)<<"\n";
+getch();
+
+
+
+	return 0;
+}

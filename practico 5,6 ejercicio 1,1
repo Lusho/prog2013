@@ -1,0 +1,70 @@
+// practico 5 y 6.cpp : Defines the entry point for the console application.
+//
+
+/*
+#include "stdafx.h"
+#include "stdio.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+practico 5
+1.	Dado el peso P en gramos de una carta; haga un programa para calcular el costo de enviar la carta, de acuerdo a la siguiente tabla:
+Si 	0  < P < 50		entonces costo Bs. 1.50
+Si 	50 < P <= 100		entonces costo Bs. 4.00
+Si 	100 < P <= 200	entonces costo Bs. 6.00
+Si 	200 < P <= 350	entonces costo Bs. 10.50
+Si 	350 < P <= 500 	entonces costo Bs. 15.00
+Si 	P  > 500 		entonces mensaje 'NO PUEDE ENVIAR COMO CARTA'
+*/
+/*int main()
+{float p;
+	cout<<"ingrese el peso de la carta:\n";
+    cin>>p;
+	if(p>0 && p<50)
+		cout<<"el costo del envio es: 1.50 Bs";
+
+	else if(p>50 && p<=100)
+		cout<<"el costo del envio es: 4.00 Bs";
+
+	else if(p>100 && p<=200)
+		cout<<"el costo del envio es: 6.00 Bs";
+
+	else if(p>200 && p<=350)
+		cout<<"el costo del envio es: 10.50 Bs";
+
+	else if(p>350 && p<=500)
+		cout<<"el costo del envio es: 15.00 Bs";
+
+	else if(p>500)
+		cout<<"la carta o puede ser enviada";
+	getch();
+		
+	return 0;
+}
+*/
+
+/*prctico 6
+1.	Suma de los números enteros entre 1 y N.
+	S=1+2+3+⋯…………+N*/
+
+#include "stdafx.h"
+#include "stdio.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+int main()
+{int n,c,s=0;
+cout<<"ingresa el limite de la suma de enteros:";
+
+cin>>n;
+
+for (c=1;c<=n;c++)    
+{s=s+c;
+
+}
+cout<<"la suma de los "<<n<<" enteros es:"<<s;
+getch();
+	return 0;
+}

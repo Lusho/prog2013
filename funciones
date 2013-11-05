@@ -1,0 +1,42 @@
+	Construir un programa, que mediante funciones, para hallar la suma de la siguiente serie, dados X y N enteros positivos:
+
+    x1         x2         x3        x4                 xN
+S =           +          +          +          + . . . + 
+          1!        2!          3!        4!                 N!
+#include "stdafx.h"
+#include "conio.h"
+int fac(float a)
+{
+	int s=1;
+	for(int i=1;i<=a;i++)
+		s=s*i;
+	return s;
+}
+float POTEN(float a,float z)
+{
+
+	float s=a;
+	for(int i=1;i<z;i++)
+	{
+		if(i==1)s=a*a;
+		if(i!=1)s=s*a;
+	}
+	return s;
+}
+float serie(float a,float b)
+{
+	float s=0;
+	for(float i=1;i<=b;i++)
+	{s=s+(POTEN(a,i)/fac(i));}
+	return s;
+}
+int main(void)
+{
+	float b,e;
+	printf("Introdruzca una base constante: ");
+	scanf("%f",&b);
+	printf("Introdruzca el (exponente maximo/Factorial de denominador) al que llegara la base: ");
+	scanf("%f",&e);
+	printf("El resultado es:%f",serie(b,e));
+	getch();
+	return 0;

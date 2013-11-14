@@ -1,0 +1,1077 @@
+IS 110 Introducción a la programación
+Funciones 
+
+Escribir programas en lenguaje C para cada uno de los siguientes problemas.
+
+1.	Construir una función POTEN(y, y), para calcular la potencia x y de dos números reales cualesquiera.
+ #include "stdafx.h"
+#include "conio.h"
+float POTEN(float a,int z)
+{
+
+	float s=a;
+	for(int i=1;i<z;i++)
+	{
+		if(i==1)s=a*a;
+		if(i!=1)s=s*a;
+	}
+	return s;
+}
+
+int main(void)
+{
+	float b;
+	int n;
+	printf("Ingrese la base: ");
+	scanf_s("%f",&b);
+	printf("\Ingrese exponente: ");
+	scanf_s("%d",&n);
+	printf("\Resultado=%f",POTEN(b,n));
+	getch();
+
+	return 0;
+}
+
+
+
+2.	Construir una función FAC(n) para calcular el factorial de un entero.
+ #include "conio.h"
+int fac(int a)
+{
+	int s=1;
+	for(int i=1;i<=a;i++)
+		s=s*i;
+	return s;
+}
+int main(void)
+{
+	int n;
+	printf("Ingrese numero a sacar factorial: ");
+	scanf("%d",&n);
+	printf("El factorial de %d es %d",n,fac(n));
+	getch();
+	return 0;
+}
+3.	Construir un programa, que mediante funciones, para hallar la suma de la siguiente serie, dados X y N enteros positivos:
+
+    x1         x2         x3        x4                 xN
+S =           +          +          +          + . . . + 
+          1!        2!          3!        4!                 N!
+#include "stdafx.h"
+#include "conio.h"
+int fac(float a)
+{
+	int s=1;
+	for(int i=1;i<=a;i++)
+		s=s*i;
+	return s;
+}
+float POTEN(float a,float z)
+{
+
+	float s=a;
+	for(int i=1;i<z;i++)
+	{
+		if(i==1)s=a*a;
+		if(i!=1)s=s*a;
+	}
+	return s;
+}
+float serie(float a,float b)
+{
+	float s=0;
+	for(float i=1;i<=b;i++)
+	{s=s+(POTEN(a,i)/fac(i));}
+	return s;
+}
+int main(void)
+{
+	float b,e;
+	printf("Introdruzca una base constante: ");
+	scanf("%f",&b);
+	printf("Introdruzca el (exponente maximo/Factorial de denominador) al que llegara la base: ");
+	scanf("%f",&e);
+	printf("El resultado es:%f",serie(b,e));
+	getch();
+	return 0;
+}
+4.	Construir un programa, que mediante funciones, halle la suma de la siguiente serie, dados X y N enteros positivos:
+
+    x1         x3         x5        x7                  xN
+S =           -          +          -          +/- . . .  
+                1!        3!          5!        7!                  N!
+ #include "conio.h"
+int fac(float a)
+{
+	int s=1;
+	for(int i=1;i<=a;i++)
+		s=s*i;
+	return s;
+}
+float POTEN(float a,float z)
+{
+
+	float s=a;
+	for(int i=1;i<z;i++)
+	{
+		if(i==1)s=a*a;
+		if(i!=1)s=s*a;
+	}
+	return s;
+}
+float serie(float a,float b)
+{
+	int signo=1;
+	float s=0;
+	for(float i=1;i<=b;i=i+2)
+	{
+		s=s+(signo*(POTEN(a,i)/fac(i)));
+		signo=signo*(-1);
+	}
+	return s;
+}
+int main(void)
+{
+	float b,e;
+	printf("Introdruzca una base constante: ");
+	scanf("%f",&b);
+	printf("Introdruzca el (exponente maximo/Factorial de denominador) al que llegara la base: ");
+	scanf("%f",&e);
+	printf("El resultado es:%f",serie(b,e));
+	getch();
+	return 0;
+}
+
+
+
+
+5.	Construir una función que calcule la solución de un sistema de dos ecuaciones con 2 variables de la forma:
+
+Ax + By + C = 0
+Dx + Ey + F = 0
+ 
+
+El procedimiento debe recibir como parámetros de entrada los 6 coeficientes de la ecuación, y dar como parámetros de salida la solución (X, Y). Por ejemplo una llamada sería la siguiente: SISTEMA(1,2,3,4,5,6, X, Y), correspondiente al sistema:
+
+ x + 2y + 3 = 0
+4x + 5y + 6 = 0
+#include "stdafx.h"
+#include "conio.h"
+int sistema(int a, int b, int c, int d, int e, int f,int&x,int&y)
+{
+	if((d*b-a*e)==0 && (f*a-d*c)==0)
+	{
+		printf("Las rectas son sobrepuestas y sus puntos de intereseccion infinitos");
+		return 0;
+	}
+	if((d*b-a*e)==0 && (f*a-d*c)!=0)
+	{
+		printf("Las rectas son paralelas y no se llegaran a intersectar nunca");
+		return 0;
+	}
+	x=(e*c-b*f)/(b*d-e*a);
+	y=(d*c-a*f)/(a*e-d*b);
+	return 0;
+}
+int main(void)
+{
+	int a,b,c,d,e,f,x=0,y=0;
+	printf("Ingrese a,b,c respectivamente (ax+by+c=0) ");
+	scanf("%d%d%d",&a,&b,&c);
+	printf("Ingrese d,e,f respectivamente (dx+ey+f=0) ");
+	scanf("%d%d%d",&d,&e,&f);
+	printf("Este es su sistema: %dx+%dy+%d=0\n                    %dx+%dy+%d=0\n ",a,b,c,d,e,f);
+	getch();
+	sistema(a,b,c,d,e,f,x,y);
+	if(x!=0) printf("x=%d     y=%d",x,y);
+	getch();
+	return 0;
+}
+
+6.	Dada una fecha en forma de día, mes, año; mediante un procedimiento LITERAL convertirla en su equivalente literal. Por ejemplo: la fecha 20, 5, 99 se debe ser convertida e imprimir ’20 de Mayo de 1999’. La llamada para este caso sería LITERAL(20, 5, 99).
+ #include "conio.h"
+void literal(int d,int m,int a)
+{
+	if(m==1) printf("%d de Enero de %d",d,a);
+	if(m==2) printf("%d de Febrero de %d",d,a);
+	if(m==3) printf("%d de Marzo de %d",d,a);
+	if(m==4) printf("%d de Abril de %d",d,a);
+	if(m==5) printf("%d de Mayo de %d",d,a);
+	if(m==6) printf("%d de Junio de %d",d,a);
+	if(m==7) printf("%d de Julio de %d",d,a);
+	if(m==8) printf("%d de Agosto de %d",d,a);
+	if(m==9) printf("%d de Septiembre de %d",d,a);
+	if(m==10) printf("%d de Octubre de %d",d,a);
+	if(m==11) printf("%d de Noviembre de %d",d,a);
+	if(m==12) printf("%d de Dicimbre de %d",d,a);
+}
+int main(void)
+{
+	int d,m,a;
+	printf("Ingrese dia, mes y año en numeros: ");
+	scanf ("%d%d%d",&d,&m,&a);
+	literal(d,m,a);
+	getch();
+	return 0;
+}
+
+
+7.	Dado un número combinatorio con parámetros n y r, obtener su valor numérico. Un número combinatorio se define de la siguiente forma:
+
+   n   	      n!
+Combi(n, r) =            =  ----------          donde ‘!’ es la función factorial
+		 	   r	   r! (n-r)!
+
+Construir un programa que utilice una función factorial llamada FAC(n), y luego desde el programa principal la llame de la siguiente forma:
+
+		C = FAC(n) / (FAC(r) * FAC(n-r))
+#include "conio.h"
+int fac(int a)
+{
+	int s=1;
+	for(int i=1;i<=a;i++)
+		s=s*i;
+	return s;
+}
+int main(void)
+{
+	int r,n;
+	printf("Ingrese n y r: ");
+	scanf ("%d%d",&n,&r);
+	printf("\nResultado Combinatorio= %d",(fac(n)/(fac(r)*fac(n-r))));
+	getch();
+	return 0;
+}
+
+8.	Construir un procedimiento para resolver una ecuación cuadrática de la forma ax2 + bx + c = 0, considerando todos los casos; es decir dos raíces reales, dos raíces complejas o una raíz doble.
+ #include "conio.h"
+#include "math.h"
+int resolver(float a,float b,float c)
+{
+	float d=(b*b)-(4*a*c);
+	if(a==0)
+		printf("Solucion unica %f",-c/b);
+	if(d<0)
+	{
+		printf("Solucion imaginaria %f",-b/(2*a));
+		printf("+%fi\n",sqrt(d*(-1))/(2*a));
+		printf("Solucion imaginaria %f",-b/(2*a));
+		printf("-%fi\n",sqrt(d*(-1))/(2*a));
+	}
+	if(d>=0)
+	{
+		printf("Solucion 1 %f\n",(-b+sqrt(d))/(2*a));
+		printf("Solucion 2 %f",(-b-sqrt(d))/(2*a));
+	}
+	return 0;
+}
+int main(void)
+{
+
+	float a,b,c;
+	printf("Ingrese los valores a,b,c para ax^2+bx+c\n");
+	scanf("%f%f%f",&a,&b,&c);
+	resolver(a,b,c);
+	getch();
+	return 0;
+}
+
+
+
+
+9.	Construir una función que lea un valor binario X y devuelva como resultado su equivalente decimal.
+ #include "conio.h"
+#include "math.h"
+int convert(int n)
+{
+	float i=0;
+	int c,b,s=0,x=n;
+	while(x!=0)
+	{
+		c=x%10;
+	  x=x/10;
+	  s=s+c*(pow(2,i));
+	  i++;
+	}
+	return s;
+}
+int main(void)
+{
+	int n;
+	printf("Ingrese un numero binario: ");
+	scanf("%d",&n);
+	printf("Su numero en decimal: %d",convert(n));
+	getch();
+	return 0;
+}
+
+
+
+
+10.	Construir un procedimiento para convertir un número N en su equivalente en números romanos.
+ #include "conio.h"
+void unidad(int c)
+{
+	if(c==0)printf("");
+	if(c==1)printf("I");
+	if(c==2)printf("II");
+	if(c==3)printf("III");
+	if(c==4)printf("IV");
+	if(c==5)printf("V");
+	if(c==6)printf("VI");
+	if(c==7)printf("VII");
+	if(c==8)printf("VIII");
+	if(c==9)printf("IX");
+}
+void decena(int d)
+{
+	if(d==0)printf("");
+	if(d==1)printf("X");
+	if(d==2)printf("XX");
+	if(d==3)printf("XXX");
+	if(d==4)printf("IL");
+	if(d==5)printf("L");
+	if(d==6)printf("LX");
+	if(d==7)printf("LXX");
+	if(d==8)printf("LXXX");
+	if(d==9)printf("XC");
+}
+void convert(int n)
+{
+	int u,d,x=n;
+	u=x%10;
+	x=x/10;
+	d=x%10;
+	decena(d);
+	unidad(u);
+}
+int main(void)
+{
+	int n;
+	printf("Ingrese un numero decimal(1 al 99): ");
+	scanf("%d",&n);
+	convert(n);
+	getch();
+	return 0;
+}
+
+
+11.	Construir una función que convierta un número real R de hasta cuatro cifras con dos decimales en su equivalente literal. Por ejemplo: Bs 1560.50, será convertido a ‘un mil quinientos sesenta 50/100 bolivianos’
+ void convunidades(int u)
+{
+	if(u==1)printf("y uno ");
+	if(u==2)printf("y dos ");
+	if(u==3)printf("y tres ");
+	if(u==4)printf("y cuatro ");
+	if(u==5)printf("y cinco ");
+	if(u==6)printf("y seis ");
+	if(u==7)printf("y siete ");
+	if(u==8)printf("y ocho ");
+	if(u==9)printf("y nueve ");
+}
+void convdecenas(int u)
+{
+	if(u==1)printf("diez ");
+	if(u==2)printf("veinte ");
+	if(u==3)printf("treinta ");
+	if(u==4)printf("cuarenta ");
+	if(u==5)printf("cincuenta ");
+	if(u==6)printf("sesenta ");
+	if(u==7)printf("setenta ");
+	if(u==8)printf("ochenta ");
+	if(u==9)printf("noventa ");
+}
+void convcentenas(int u)
+{
+	if(u==1)printf("ciento ");
+	if(u==2)printf("doscientos ");
+	if(u==3)printf("trescientos ");
+	if(u==4)printf("cuatrocientos ");
+	if(u==5)printf("quinientos ");
+	if(u==6)printf("seiscientos ");
+	if(u==7)printf("setecientos ");
+	if(u==8)printf("ochocientos ");
+	if(u==9)printf("novecientos ");
+}
+void convmiles(int u)
+{
+	if(u==1)printf("Un mil ");
+	if(u==2)printf("dos mil ");
+	if(u==3)printf("tres mil ");
+	if(u==4)printf("cuatro mil ");
+	if(u==5)printf("cinco mil ");
+	if(u==6)printf("seis mil ");
+	if(u==7)printf("siete mil ");
+	if(u==8)printf("ocho mil ");
+	if(u==9)printf("nueve mil ");
+}
+void convertirentero(int b)
+{
+	int x=b,u,d,c,m;
+	u=x%10;
+	x=x/10;
+	d=x%10;
+	x=x/10;
+	c=x%10;
+	x=x/10;
+	m=x%10;
+	convmiles(m);
+	convcentenas(c);
+	convdecenas(d);
+	convunidades(u);
+}	
+void convertirdecimas(float d)
+{
+	if(d<0.1) printf(",%10.0f/100",d*1000);
+	if(d>=0.1)printf(",%10.0f/100",d*100);
+}
+void separarnumero(float b)
+{
+	float d;
+	int e=b;
+	d=b-e;
+	convertirentero(e);
+	convertirdecimas(d);	
+}
+int main(void)
+{
+	float n;
+	printf("Ingrese numero a convertir(Maximo 4 cifras y 2 decimales): ");
+	scanf("%f",&n);
+	separarnumero(n);
+	getch();
+	return 0;
+}
+
+
+12.	Construir una función para validar una fecha dada en día, mes y año.
+¿? No entiendo la pregunta.
+13.	Construir una función que redondee un número real R a n decimales.
+ float redondear(float n, int d)
+{
+	int aux;
+	float c=n;
+	c=c*d;
+	aux=c;
+	c=aux;
+	c=c/d;
+	return c;
+}
+int main(void)
+{
+	float d,n,b;
+	printf("Ingrese un numero real: ");
+	scanf("%f",&n);
+	printf("Ingrese cuantos decimales quiere en el nuevo numero: ");
+	scanf("%f",&d);
+	d=pow(10,d);
+	printf("Numero redondeado es: %f",redondear(n,d));
+	getch();
+
+	return 0;
+}
+
+14.	Construya un procedimiento que calcule los días transcurridos entre dos fechas cualesquiera. Cada fecha está dada en día/mes/año.
+  #include "conio.h"
+
+void calculartrans(int d,int m,int a,int d2,int m2,int a2)
+{
+	int ta=0,tm=0,td=0,tt=0;
+	ta=(a2-a)*365;
+	if(m2>m) tm=(m2-m)*30;
+	if(m>m2) tm=(m-m2)*30;
+	if(d2>d) td=(d2-d);
+	if(d>d2) td=(d-d2);
+	tt=ta+td+tm;
+	printf("Total dias transcurridos %d",tt);
+}
+int main(void)
+{
+	int d,m,a,d2,m2,a2;
+	printf("Ingrese dia, mes y año respectivamente: ");
+	scanf("%d%d%d",&d,&m,&a);
+	printf("Ingrese dia, mes y año respectivamente: ");
+	scanf("%d%d%d",&d2,&m2,&a2);
+	calculartrans(d,m,a,d2,m2,a2);
+	getch();
+	return 0;
+}
+
+
+
+
+ARREGLOS (VECTORES )
+
+1.	Hacer un programa para sacar el máximo valor de un vector de valores ya sean reales o enteros.
+ #include "conio.h"
+#define tv 1000
+
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+int sacarmenor(int*v, int n)
+{
+	int m;
+	m=v[0];
+	for (int i=1;i<n;i++)
+	{
+		if (v[i]<m) m=v[i];
+	}
+	return m;
+}
+int main(void)
+{
+	int n;
+	int a[tv];
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+	printf("El menor es %d",sacarmenor(a,n));
+	getch();
+
+	return 0;
+}
+
+2.	Hacer un programa para sacar el mínimo valor de un vector de valores ya sean reales o enteros.
+ #include "conio.h"
+#define tv 1000
+
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+int sacarmayor(int*v, int n)
+{
+	int m;
+	m=v[0];
+	for (int i=1;i<n;i++)
+	{
+		if (v[i]>m) m=v[i];
+	}
+	return m;
+}
+int main(void)
+{
+	int n;
+	int a[tv];
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+	printf("El mayor es %d",sacarmayor(a,n));
+	getch();
+	return 0;
+}
+
+3.	Hacer un programa para sacar el promedio de valores de un vector.
+ void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+float promediarv(int*v,int n)
+{
+	float s=0;
+	for(int i=0;i<n;i++)
+	{
+		s=s+v[i];
+		if(i==(n-1)) s=s/n;
+	}
+	return s;
+}
+int main(void)
+{
+	int a[tv],n;
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+	printf("El promedio de los numeros ingresados es: %10.3f",promediarv(a,n));
+	getch();
+	return 0;
+}
+
+4.	Hacer un programa para revertir la lista de valores de un vector, en otro vector, es decir se debe mantener el vector original.
+ #include "conio.h"
+#define tv 1000
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+void swap(int*v,int*v2,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		v2[i]=v[n-1-i];
+	}
+}
+void mostrarv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("V[%d]=%d\n",i,v[i]);
+	}
+}
+int main(void)
+{
+	int a[tv],b[tv],n;
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+	swap(a,b,n);
+	mostrarv(b,n);
+	getch();
+	return 0;
+}
+5.	Hacer un programa para determinar si un vector es capicúa, es decir, si el vector revertido es igual al inicial, se dice que el vector es capicúa.
+ #include "conio.h"
+#define tv 1000
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+void swap(int*v,int n)
+{
+	int aux;
+	for(int i=0;i<n/2;i++)
+	{
+		aux=v[i];
+		v[i]=v[n-1-i];
+		v[n-1-i]=aux;
+	}
+}
+void copiarv(int*v,int*v2, int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		v2[i]=v[i];
+	}
+}
+int compararv(int*v,int*v2,int n)
+{
+	int r=0;
+	for(int i=0;i<n;i++)
+	{
+		if(v2[i]!=v[i])
+		{
+			r=1;
+		}
+
+	}
+	return r;
+}
+int main(void)
+{
+	int a[tv],b[tv],n;
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+	copiarv(a,b,n);
+	swap(a,n);
+	compararv(a,b,n);
+	if (compararv(a,b,n)==0) printf("Es capicua.");
+	else printf("No es capicua.");
+	getch();
+	return 0;
+}
+
+
+6.	Sacar el promedio de cada tres valores consecutivos en un vector.
+P1= A1 + A2 + A3 
+P2= A2 + A3 + A4
+P3= A3 + A4 + A5
+……………………
+#include "conio.h"
+#define tv 1000
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+int sacarpromedio(int*v,int n)
+{
+	float pr;
+	if (n<3)
+	{
+		printf("No hay suficientes datos.");
+		return 0;
+	}
+	for(int i=0;i<(n+1)/2;i++)
+	{
+		if(n==3) 
+		{
+			pr=(v[i]+v[i+1]+v[i+2])/3;
+			printf("P%d: %f\n",i+1,pr);
+			break;
+		}
+		else
+		{
+			pr=(v[i]+v[i+1]+v[i+2])/3;
+			printf("P%d: %10.2f\n",i+1,pr);
+		}
+		
+	}
+	return 0;
+}
+int main(void)
+{
+	int a[tv],n;
+	printf("Ingrese tamaño del vector(3 o mayor): ");
+	scanf("%d",&n);
+	leerv(a,n);
+	sacarpromedio(a,n);
+	getch();
+	return 0;
+}
+
+
+7.	Dado un número entero, el programa debe devolver el valor escrito literalmente. Por ejemplo si se da 12 debe devolver 'DOCE'. Hacer esto hasta el valor 20. ¿ Es posible generalizar para 30, 31, 32, ....100,101,... etc. ?.
+ #include "conio.h"
+void numeropeq(int u)
+{
+	if(u==1)printf("uno ");
+	if(u==2)printf("dos ");
+	if(u==3)printf("tres ");
+	if(u==4)printf("cuatro ");
+	if(u==5)printf("cinco ");
+	if(u==6)printf("seis ");
+	if(u==7)printf("siete ");
+	if(u==8)printf("ocho ");
+	if(u==9)printf("nueve ");
+	if(u==10)printf("diez");
+	if(u==11)printf("once");
+	if(u==12)printf("doce");
+	if(u==13)printf("trece");
+	if(u==14)printf("catorce");
+	if(u==15)printf("quince");
+	if(u==16)printf("dieciseis");
+	if(u==17)printf("diecisiete");
+	if(u==18)printf("dieciocho");
+	if(u==19)printf("diecinueve");
+	if(u==20)printf("veinte");     
+	if(u==21)printf("veintiuno");  
+	if(u==22)printf("veintidos");  
+	if(u==23)printf("veintitres"); 
+	if(u==24)printf("veinticuatr");
+	if(u==25)printf("veinticinco");
+	if(u==26)printf("veintiseis"); 
+	if(u==27)printf("veintisiete");
+	if(u==28)printf("veintiocho ");
+	if(u==29)printf("veintinueve");
+}
+void numerog(int u)
+{
+	int aux,aux2;
+	aux=u/10;
+	aux2=u%10;
+	if(aux==3)printf("treinta");
+	if(aux==4)printf("cuarenta");
+	if(aux==5)printf("cincuenta");
+	if(aux==6)printf("sesenta");
+	if(aux==7)printf("setenta");
+	if(aux==8)printf("ochenta");
+	if(aux==9)printf("noventa");
+	if(aux2!=0) printf(" y ");
+	numeropeq(aux2);
+}
+int main(void)
+{
+	inicio:
+	int n;
+	printf("\nIngrese numero: ");
+	scanf("%d",&n);
+	if(n<30) numeropeq(n);
+	else numerog(n);
+	goto inicio;
+	return 0;
+}
+
+8.	Dado un vector A de n números reales, obténgase la diferencia más grande entre dos elementos consecutivos de este vector.
+ #include "conio.h"
+#include "math.h"
+#define tv 1000
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+void diferencia(int*v,int n)
+{
+	int dif,aux,aux2;
+	for(int i=0;i<n-1;i++)
+	{
+		if(i==0) 
+		{
+			dif=abs(v[i]-v[i+1]);
+			aux=v[i];
+			aux2=v[i+1];
+		}
+		else 
+		{
+			if (abs(v[i]-v[i+1])>dif) 
+			{
+				dif=abs(v[i]-v[i+1]);
+				aux=v[i];
+				aux2=v[i+1];
+			}
+		}
+	}
+	printf("La mayor diferencia es de %d entre los elementos [%d] y [%d].",dif,aux,aux2);
+}
+int main(void)
+{
+	int a[tv],n;
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+    diferencia(a,n);
+	getch();
+	return 0;
+}
+
+9.	Concatenar dos vectores de tamaño n y m respectivamente. [a1,a2,......an;]  [b1,b2,....bm]; concatenado resulta [a1,a2,......an,b1,b2,....bm] con n+m elementos.
+ #include "conio.h"
+#define tv 1000
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+void concatenarv(int*v, int*v2,int*vs,int n,int n2)
+{
+	for(int i=0;i<n;i++)
+	{
+		vs[i]=v[i];
+	}
+	for(int i=n;i<n+n2;i++)
+	{
+		vs[i]=v2[i-n];
+	}
+}
+void mostrarv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+		printf("V[%d]=%d\n",i,v[i]);
+}
+int main(void)
+{
+	int n,m;
+	int a[tv],b[tv],c[tv];
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	printf("\nIngrese tamaño del segundo vector: ");
+	scanf("%d",&m);
+	leerv(a,n);
+	leerv(b,m);
+	concatenarv(a,b,c,n,m);
+	mostrarv(c,n+m);
+	getch();
+	return 0;
+}
+
+10.	Intercalar dos vectores A y B clasificados ascendentemente de tamaño n y m respectivamente en uno solo de tal forma que el resultado sea un vector clasificado.
+11.	Hacer un programa que permita contar número de valores negativos, positivos y ceros que hay en un vector.
+ #include "conio.h"
+#define tv 1000
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+void contarv(int*v,int n)
+{
+	int ps=0,ng=0,ce=0;
+	for(int i=0;i<n;i++)
+	{
+		if(v[i]>0) ps++;
+		if(v[i]<0)ng++;
+		if(v[i]==0) ce++;
+	}
+	printf("Hay %d valores positivos en el vector.\n",ps);
+	printf("Hay %d valores negativos en el vector.\n",ng);
+	printf("Hay %d ceros en el vector.\n",ce);
+}
+int main(void)
+{
+	int n;
+	int a[tv];
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+	contarv(a,n);
+	getch();
+	return 0;
+}
+
+
+12.	Hacer un programa para eliminar los  números duplicados de un vector.
+13.	Hacer un programa para revertir una lista en el mismo vector.
+  #include "conio.h"
+#define tv 1000
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+void swap(int*v,int n)
+{
+	int aux;
+	for(int i=0;i<n/2;i++)
+	{
+		aux=v[i];
+		v[i]=v[n-1-i];
+		v[n-1-i]=aux;
+	}
+}
+void mostrarv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("V[%d]=%d\n",i,v[i]);
+	}
+}
+int main(void)
+{
+	int a[tv],n;
+	printf("Ingrese tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+	swap(a,n);
+	mostrarv(a,n);
+	getch();
+	return 0;
+}
+
+
+14.	Hacer un programa para clasificar una lista de valores (entero o reales) en orden ascendente.
+ #include "conio.h"
+#define tv 1000
+void mostrar(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("%d,",v[i]);
+	}
+}
+void leerv(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		
+		printf("Ingrese valor para vector[%d]:",i);
+		scanf("%d",&v[i]);
+	}
+}
+void ordenarv(int*v,int n)
+{
+	int aux,m;
+	for (int i=0;i<n;i++)
+	{
+		
+		m=v[i];
+		aux=i;
+		for(int c=i;c<n;c++)
+		{
+			if(v[c]>m) 
+			{
+				m=v[c];
+				aux=c;
+			}
+		}
+		v[aux]=v[i];
+		v[i]=m;
+	}
+}
+int main(void)
+{
+	int n, a[tv];
+	printf("Ingrese el tamaño del vector: ");
+	scanf("%d",&n);
+	leerv(a,n);
+	ordenarv(a,n);
+	mostrar(a,n);
+	getch();
+	return 0;
+}
+
+
+15.	Un vector tiene la lista de alumnos y otro vector tiene las notas. Hacer un programa para obtener las tres mejores notas. Sugerencia: Clasificar el vector en orden descendente y luego listar los tres primeros, hay que tener cuidado cuando se intercambia los elementos del vector de alumnos también se debe intercambiar las notas.
+16.	Confeccionar en un menú para manejar alumnos con las siguiente funciones: 1) Ingresar un alumno y su nota 2) Listar los alumnos 3) Ordenar alfabéticamente 4) Sacar la mejor nota 5) Sacar el promedio de notas.
+17.	Generar los primeros n números de Fibonacci en un vector.
+ #include "conio.h"
+#define tv 1000
+void generar(int*v,int n)
+{
+	int a=0,b=1;
+	for (int i=0;i<n;i++)
+	{
+		if (i==0) 
+		{
+			v[i]=a;
+		}
+		if (i==1) v[i]=b;
+		if (i>1) 
+		{
+			v[i]=a+b;
+			a=b;
+			b=v[i];
+		}
+	}
+}
+void mostrar(int*v,int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		printf("%d,",v[i]);
+	}
+}
+
+int main(void)
+{
+	int n, a[tv];
+	printf("Ingrese la cantidad de numeros que quiere generar en fibonacci: ");
+	scanf("%d",&n);
+	generar(a,n);
+	mostrar(a,n);
+	getch();
+	return 0;
+}
+
+

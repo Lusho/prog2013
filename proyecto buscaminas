@@ -1,0 +1,245 @@
+
+	public: Void CountEm()
+			{
+				int miRowCount = Minegrid->RowCount;
+				for (int fil = 0; fil < Minegrid->RowCount; fil++)
+				{
+					for (int col = 0; col < Minegrid->RowCount; col++)
+					{
+						int minas = 0;
+						if (Minegrid->Rows[fil]->Cells[col]->Value != "*")
+						{
+						
+							for (int y = -1; y < 2; y++)
+							{
+								for (int x = -1; x < 2; x++)
+								{
+									if( fil+y < miRowCount && fil+y > -1 && col+x < miRowCount && col+x > -1)
+										if (Minegrid->Rows[fil+y]->Cells[col+x]->Value == "*")
+										{
+											minas++;
+										}
+								}
+							}
+							Minegrid->Rows[fil]->Cells[col]->Value = minas;
+
+						}
+						Minegrid->Rows[fil]->Cells[col]->Style->ForeColor = System::Drawing::Color::Black;
+						Minegrid->Rows[fil]->Cells[col]->Style->BackColor = System::Drawing::Color::Black;
+					}
+				}
+				
+				Minegrid->ClearSelection();
+				Minegrid->RowHeadersVisible = false;
+				Minegrid->ColumnHeadersVisible = false;
+			}
+	public: Void Populate(int size , System::Windows::Forms::DataGridView ^)
+			{
+				Minegrid->Enabled = true;
+				Minegrid->RowCount=0;
+				 Minegrid->ColumnCount=0;
+					
+				Minegrid->RowCount=size;
+				 Minegrid->ColumnCount=size;
+				  for (int i = 0; i < Minegrid->ColumnCount; i++)
+				 {
+				
+					Minegrid->Columns[i]->SortMode = DataGridViewColumnSortMode::NotSortable;
+					
+				 }
+				  
+			}
+
+	public: Void MineEm(int mines, System::Windows::Forms::DataGridView ^)
+			{
+				
+				int dif;
+				minasiniciales=mines;
+				Random();
+				srand((unsigned) time(NULL));
+				label2->Text = mines.ToString();
+				while(mines>0)
+				{
+					int CellRand = (rand()%Minegrid->RowCount);
+					int RowRand = (rand()%Minegrid->RowCount);
+					if( Minegrid->Rows[RowRand]->Cells[CellRand]->Value != "*")
+					{
+						Minegrid->Rows[RowRand]->Cells[CellRand]->Value = "*";
+						mines--;
+					}
+				}
+				
+			}
+	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+				 
+				Minegrid->DefaultCellStyle->SelectionBackColor = System::Drawing::Color::Black;
+				Minegrid->DefaultCellStyle->SelectionForeColor = System::Drawing::Color::White;
+			 }
+	private: System::Void fileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+				 fileToolStripMenuItem->DropDown;
+			 }
+	private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+				 Application::Exit();
+			 }
+	private: System::Void helpToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+				MessageBox::Show("By Lucho Roca y Compañia");
+			 }
+
+private: System::Void easyToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+			 
+			 Populate(9,Minegrid);
+			 MineEm(10,Minegrid);
+			 CountEm();
+			 
+		 }
+private: System::Void mediumToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+			  
+			 Populate(16,Minegrid);
+			 MineEm(40,Minegrid);
+			 CountEm();
+		 }
+private: System::Void hardToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+			 Populate(22,Minegrid);
+			 MineEm(100,Minegrid);
+			 CountEm();
+		
+		 }
+private: System::Void Minegrid_CellMouseClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^  e) {
+			//if(e->RowIndex != -1 && e->ColumnIndex != -1)
+			{
+				/*if(((e)->Button) == System::Windows::Forms::MouseButtons::Left)
+				 {
+					 if(Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->BackColor != System::Drawing::Color::RoyalBlue)
+					 {
+						Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor = System::Drawing::Color::White;
+					 }
+					 else
+					 {
+						Minegrid->ClearSelection();
+					 }
+
+					
+				 }
+				else
+				 {
+					 if(Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor != System::Drawing::Color::White)
+					 {
+						 Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->BackColor = System::Drawing::Color::RoyalBlue;
+						 Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor = System::Drawing::Color::RoyalBlue;
+						 
+					 }
+				 }*/
+			}
+		 }
+private: System::Void Minegrid_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) {
+			
+		 }
+private: System::Void Minegrid_CellMouseDown(System::Object^  sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^  e) {
+			 if(((e)->Button) == System::Windows::Forms::MouseButtons::Left)
+				 {
+					 if(Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->BackColor != System::Drawing::Color::RoyalBlue)
+					 {
+						if(Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Value == "*")
+						{
+							Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor = System::Drawing::Color::Red;
+							MessageBox::Show("Oopps, MINA!");
+
+							//Minegrid->RowCount = 0;
+							//Minegrid->ColumnCount = 0; //TERMINO EL JUEGO
+							Minegrid->Enabled = false;
+							
+							return ;
+						}
+						else
+						{
+							if(Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor != System::Drawing::Color::White)
+							
+							CheckApertura(e->RowIndex,e->ColumnIndex);
+						}
+						Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor = System::Drawing::Color::White;
+
+					 }
+					 else
+					 {
+						Minegrid->ClearSelection();
+
+					 }
+
+					
+				 }
+				else
+				 {		 
+					 if(Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor == System::Drawing::Color::Black)
+					 {
+						 Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->BackColor = System::Drawing::Color::RoyalBlue;
+						 Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor = System::Drawing::Color::RoyalBlue;
+						 if(Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Value->ToString() == "*")
+							 minasmarcadas++;
+						 label2->Text = (int::Parse(label2->Text) -1).ToString();
+						 if(int::Parse(label2->Text) == 0 && minasmarcadas == minasiniciales)
+							 MessageBox::Show("GaNasTe!!!");
+						 
+					 }
+					 else if( Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor == System::Drawing::Color::RoyalBlue)
+					  {
+						  Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->BackColor = System::Drawing::Color::Black;
+						 Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Style->ForeColor = System::Drawing::Color::Black;
+						  if(Minegrid->Rows[e->RowIndex]->Cells[e->ColumnIndex]->Value->ToString() == "*")
+							 minasmarcadas--;
+						 label2->Text = (int::Parse(label2->Text) +1).ToString(); 
+
+					 }
+				 }
+		 }
+public: Void CheckApertura(int fil,int col)
+		{
+			int miRowCount = Minegrid->RowCount;
+			for (int y = -1; y < 2; y++)
+			{
+				for (int x = -1; x < 2; x++)
+				{
+					if( fil+y < miRowCount && fil+y > -1 && col+x < miRowCount && col+x > -1)
+					{
+						if(Minegrid->Rows[fil+y]->Cells[col+x]->Value->ToString() == "0")
+						{
+							
+							Mostrado(fil+y,col+x);
+							if(Minegrid->Rows[fil+y]->Cells[col+x]->Style->ForeColor == System::Drawing::Color::Black)
+							{
+								Minegrid->Rows[fil+y]->Cells[col+x]->Style->ForeColor = System::Drawing::Color::White;
+
+								CheckApertura(fil+y,col+x);
+							}
+						}
+					}
+						
+				}
+			}
+		}
+public: Void Mostrado(int fil,int col)
+		{
+			int miRowCount = Minegrid->RowCount;
+			for (int y = -1; y < 2; y++)
+			{
+				for (int x = -1; x < 2; x++)
+				{
+					if( fil+y < miRowCount && fil+y > -1 && col+x < miRowCount && col+x > -1)
+					{
+						if(Minegrid->Rows[fil+y]->Cells[col+x]->Value->ToString() != "0")
+							Minegrid->Rows[fil+y]->Cells[col+x]->Style->ForeColor = System::Drawing::Color::White;
+					}
+
+				}
+			}
+
+		}
+private: System::Void Minegrid_SelectionChanged(System::Object^  sender, System::EventArgs^  e) {
+
+				 Minegrid->ClearSelection();
+		
+		 }
+
+};
+}
+
+/*luis roca, valeria araujo, francisco cabrera, david hurtado*/
